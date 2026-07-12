@@ -4,7 +4,7 @@ pipeline {
 
     environment {
         AWS_REGION = "ap-south-2"
-        ACCOUNT_ID = credentials('Account-Id')
+        ACCOUNT_ID = credentials('Account-ID')
         CLUSTER_NAME = "devops-cluster"
         IMAGE_NAME = "bank-app"
         IMAGE_TAG = "v1"
