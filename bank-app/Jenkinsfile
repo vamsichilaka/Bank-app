@@ -5,8 +5,7 @@ pipeline {
     environment {
         AWS_REGION = "ap-south-2"
         ACCOUNT_ID = credentials('Account-Id')
-        CLUSTER_NAME = "bank-cluster"
-
+        CLUSTER_NAME = "devops-cluster"
         IMAGE_NAME = "bank-app"
         IMAGE_TAG = "v1"
     }
@@ -23,6 +22,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh '''
+                pwd
+                ls
                 docker build -t $IMAGE_NAME:$IMAGE_TAG app/
             }
         }
