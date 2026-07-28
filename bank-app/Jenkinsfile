@@ -63,12 +63,14 @@ pipeline {
             }
         }
 
-        stage('Deploy to Amazon EKS') {
+        stage('Deploy Blue') {
             steps {
                 sh '''
-                kubectl set image deployment/bank-app \
-                bank-app=${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME}:${IMAGE_TAG} \
-                -n bank
+                sed -i "s|IMAGE_TAG|${IMAGE_TAG}|g" bank-app/k8s/deployment-blue.yaml
+
+                kubectl apply -f bank-app/k8s/deployment-blue.yaml
+                kubectl apply -f bank-app/k8s/service.yaml
+                kubectl apply -f bank-app/k8s/ingress.yaml
                 '''
             }
         }
