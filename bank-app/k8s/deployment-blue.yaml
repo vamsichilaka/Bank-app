@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: bank-app
+  name: bank-app-blue
   namespace: bank
 
 spec:
@@ -20,6 +20,7 @@ spec:
     spec:
       containers:
       - name: bank-app
+
         image: 432004896257.dkr.ecr.ap-south-2.amazonaws.com/bank-app:IMAGE_TAG
 
         ports:
