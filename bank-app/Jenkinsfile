@@ -3,11 +3,11 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = "ap-south-2"
-        ACCOUNT_ID = credentials('Account-ID')
+        AWS_REGION   = "ap-south-2"
+        ACCOUNT_ID   = credentials('Account-ID')
         CLUSTER_NAME = "devops-cluster"
-        IMAGE_NAME = "bank-app"
-        IMAGE_TAG = "v1"
+        IMAGE_NAME   = "bank-app"
+        IMAGE_TAG    = "${BUILD_NUMBER}"
     }
 
     stages {
@@ -22,9 +22,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh '''
-                pwd
-                ls
-                docker build -t $IMAGE_NAME:$IMAGE_TAG bank-app/app/
+                docker build -t ${IMAGE_NAME}:${IMAGE_TAG} bank-app/app/
                 '''
             }
         }
@@ -55,21 +53,22 @@ pipeline {
             }
         }
 
-        stage('Deploy to Amazon EKS') {
+        stage('Configure kubectl') {
             steps {
-
                 sh '''
                 aws eks update-kubeconfig \
                 --region ${AWS_REGION} \
                 --name ${CLUSTER_NAME}
                 '''
+            }
+        }
 
+        stage('Deploy to Amazon EKS') {
+            steps {
                 sh '''
-                cd bank-app
-                kubectl apply -f k8s/deployment.yaml
-
-                kubectl apply -f k8s/service.yaml
-                kubectl apply -f k8s/ingress.yaml
+                kubectl set image deployment/bank-app \
+                bank-app=${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME}:${IMAGE_TAG} \
+                -n bank
                 '''
             }
         }
