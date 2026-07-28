@@ -10,12 +10,12 @@ spec:
 
   selector:
     matchLabels:
-      app: bank-app
+      app: blue
 
   template:
     metadata:
       labels:
-        app: bank-app
+        app: blue
 
     spec:
       containers:
