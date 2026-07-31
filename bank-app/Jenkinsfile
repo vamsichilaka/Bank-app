@@ -64,6 +64,7 @@ pipeline {
 
                 kubectl apply -f bank-app/k8s/deployment-green.yaml
                 kubectl apply -f bank-app/k8s/service.yaml
+                kubectl apply -f bank-app/k8s/service-green.yaml
                 kubectl apply -f bank-app/k8s/ingress.yaml
                 '''
             }
