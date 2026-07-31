@@ -7,7 +7,7 @@ const PORT = 3000;
 app.get("/", (req, res) => {
     res.send(`
         <h1>🏦 Bank Application</h1>
-        <h2>Version : V2</h2>
+        <h2>Version : V3</h2>
         <p>Running on Amazon EKS</p>
     `);
 });
