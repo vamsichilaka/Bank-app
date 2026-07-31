@@ -53,22 +53,16 @@ pipeline {
             }
         }
 
-        stage('Configure kubectl') {
+        stage('Deploy Green to Amazon EKS') {
             steps {
                 sh '''
                 aws eks update-kubeconfig \
                 --region ${AWS_REGION} \
                 --name ${CLUSTER_NAME}
-                '''
-            }
-        }
 
-        stage('Deploy Blue') {
-            steps {
-                sh '''
-                sed -i "s|IMAGE_TAG|${IMAGE_TAG}|g" bank-app/k8s/deployment-blue.yaml
+                sed -i "s|IMAGE_TAG|${IMAGE_TAG}|g" bank-app/k8s/deployment-green.yaml
 
-                kubectl apply -f bank-app/k8s/deployment-blue.yaml
+                kubectl apply -f bank-app/k8s/deployment-green.yaml
                 kubectl apply -f bank-app/k8s/service.yaml
                 kubectl apply -f bank-app/k8s/ingress.yaml
                 '''
