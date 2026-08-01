@@ -9,6 +9,25 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
 
+    alb.ingress.kubernetes.io/actions.canary: >
+      {
+        "type":"forward",
+        "forwardConfig":{
+          "targetGroups":[
+            {
+              "serviceName":"bank-service-blue",
+              "servicePort":"80",
+              "weight":90
+            },
+            {
+              "serviceName":"bank-service-green",
+              "servicePort":"80",
+              "weight":10
+            }
+          ]
+        }
+      }
+
 spec:
   ingressClassName: alb
 
@@ -19,6 +38,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: bank-service-green
+            name: canary
             port:
-              number: 80
+              name: use-annotation
