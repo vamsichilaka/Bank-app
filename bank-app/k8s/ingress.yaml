@@ -19,6 +19,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: bank-service
+            name: bank-service-green
             port:
               number: 80
