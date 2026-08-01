@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 
 metadata:
-  name: bank-service
+  name: bank-service-green
   namespace: bank
 
 spec:
