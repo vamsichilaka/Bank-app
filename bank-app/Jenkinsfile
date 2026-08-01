@@ -14,7 +14,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'test',
+                git branch: 'test-v3',
                     url: 'https://github.com/vamsichilaka/Bank-app.git'
             }
         }
