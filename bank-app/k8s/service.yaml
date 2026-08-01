@@ -9,7 +9,7 @@ spec:
   type: ClusterIP
 
   selector:
-    app: blue
+    app: green
 
   ports:
   - port: 80
