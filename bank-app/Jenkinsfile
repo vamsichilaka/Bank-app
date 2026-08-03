@@ -63,7 +63,7 @@ pipeline {
                 sed -i "s|IMAGE_TAG|${IMAGE_TAG}|g" bank-app/k8s/deployment-green.yaml
 
                 kubectl apply -f bank-app/k8s/deployment-green.yaml
-                
+                kubectl apply -f bank-app/k8s/service.yaml
                 '''
             }
         }
